@@ -1,0 +1,7 @@
+[user]
+	name = topologicalhurt
+	email = csin0659@uni.sydney.edu.au
+[core]
+	protectNTFS = false
+[credential]
+	helper = "!f() { /root/.vscode-server/bin/97dec172d3256f8ca4bfb2143f3f76b503ca0534/node /tmp/vscode-remote-containers-a9232cfb7af91e756b03bc90460bd2223096374a.js $*; }; f"
