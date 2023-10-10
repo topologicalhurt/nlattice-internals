@@ -11,11 +11,11 @@ Conf = MetaD.CONFIG
 class PointCloud:
 
     def __init__(self, bmod: Optional[Types.Mesh] = None, mod_fname: Optional[str] = None):
-        '''
+        """
         Parameters:
         - mod: a provided mesh (expected)
         - mod_fname: a file to load the mesh from if a mesh isn't provided
-        ''' 
+        """
         if not (bmod is None) ^ (mod_fname is None):
             raise ValueError('Illegal argument combination: one of [mod] [mod_fname] must be null (None)!')
 
@@ -29,14 +29,14 @@ class PointCloud:
     
     @staticmethod
     def _make_pmod(bmod: Types.Mesh) -> Types.Mesh:
-        '''Factory function defining inheritance pattern for the point cloud
-        'copy' of the base mesh'''
+        """Factory function defining inheritance pattern for the point cloud
+        'copy' of the base mesh"""
         class Pmod(pm.Mesh):
-            '''Define inheritance pattern for the point cloud mesh'''
+            """Define inheritance pattern for the point cloud mesh"""
             def __init__(self, bmod: Types.Mesh):
                 super().__init__(bmod._Mesh__mesh)
     
-                # Not really neccessery to use reflections but use below if that's preferred
+                # Not really necessary to use reflections but use below if that's preferred
                 # attr = inspect.getmembers(pm.Mesh, lambda a:not(inspect.isroutine(a)))
                 # pub_attr = [a for a in attr if not(a[0].startswith('__') and a[0].endswith('__'))]
                 # for a in pub_attr:
@@ -56,9 +56,9 @@ class PointCloud:
             pass
         
     def get_bmod(self) -> Types.Mesh:
-        '''Returns the base model mesh before applying PC ops'''
+        """Returns the base model mesh before applying PC ops"""
         return self._bmod
     
     def get_pmod(self) -> Types.Mesh:
-        '''Returns the model after'''
+        """Returns the model after"""
         return self._pmod
