@@ -31,13 +31,13 @@
   - build.sh: builds the docker for ARM64 / m1 macs or for general linux
   - requirements.txt: **Add any dependencies that you need into here**
     - ***Tip***: A .venv was installed at root so that you can keep track of dependencies ```~/.venv/bin/activate && pip freeze > requirements.txt && deactivate``` to generate a new requirements     list. Keep in mind that you'll need to deactivate the virtual environment to use pymesh however.
-  - main.py: follow from here for the code pipeline
-  - out: this is where all the cached or saved models will go when you wrap them with the context handler made for saving files
-  - python: **!All code is to go in here!**
-    - pc: point cloud folder (the tesselation approach topologicalhurt / myself is using
-    - frontend: gui, streamlit stuff lives in here
-  - source: any common resources go in here.
-    - ***Tip***: In python -> pc modify consts.py to add new object references or directories
+- main.py: follow from here for the code pipeline
+- out: this is where all the cached or saved models will go when you wrap them with the context handler made for saving files
+- python: **!All code is to go in here!**
+- pc: point cloud folder (the tesselation approach topologicalhurt / myself is using
+- frontend: gui, streamlit stuff lives in here
+- source: any common resources go in here.
+- ***Tip***: In python -> pc modify consts.py to add new object references or directories
 
 ## How to run 
 
