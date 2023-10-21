@@ -34,10 +34,10 @@
 - main.py: follow from here for the code pipeline
 - out: this is where all the cached or saved models will go when you wrap them with the context handler made for saving files
 - python: **!All code is to go in here!**
-- pc: point cloud folder (the tesselation approach topologicalhurt / myself is using
-- frontend: gui, streamlit stuff lives in here
+    - pc: point cloud folder (the tesselation approach topologicalhurt / myself is using
+    - frontend: gui, streamlit stuff lives in here
 - source: any common resources go in here.
-- ***Tip***: In python -> pc modify consts.py to add new object references or directories
+    - ***Tip***: In python -> pc modify consts.py to add new object references or directories
 
 ## How to run 
 
