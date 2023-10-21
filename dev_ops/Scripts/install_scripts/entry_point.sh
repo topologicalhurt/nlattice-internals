@@ -29,4 +29,4 @@ fi
 #deactivate
 
 # Install as root user
-pip install -r /tmp/requirements.txtb
+pip install -r /tmp/requirements.txt
