@@ -1,15 +1,13 @@
-import gui
-import subprocess
-from models.point_cloud import PointCloud
+from python.pc.consts import Dirs
+from python.pc.point_cloud import PointCloud
+from python.frontend.gui import launch_main_win
 
 
 def main():
     pc = PointCloud(mod_fname=Dirs.MODEL_FDIR)
     pc.change_pmesh()
     pc.save_pmesh()
-    
-    # Docker supports 3.6.11 <= and meshlib requires >= 3.8
-    subprocess.run(['python3.11', 'gui.py'])
+    launch_main_win()
 
 
 if __name__ == '__main__':
