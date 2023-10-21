@@ -3,6 +3,7 @@
 # Upgrade apt-get
 # apt-get update && apt-get upgrade
 
+
 #PY_V=$(python -V 2>&1)
 ## Compile python3.11.3
 #if [ "$PY_V" != "Python 3.11.3" ]; then
@@ -16,6 +17,7 @@
 
 # Install python requirements
 pip3 install virtualenv
+
 # Create new VENV (if not found)
 if [ ! -f "/root/.venv" ]; then
   virtualenv /root/.venv
@@ -27,4 +29,4 @@ fi
 #deactivate
 
 # Install as root user
-pip install -r /tmp/requirements.txt
+pip install -r /tmp/requirements.txtb

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 altair==5.1.2
 attrs==23.1.0
 blinker==1.6.3
@@ -46,3 +47,7 @@ urllib3==2.0.7
 validators==0.22.0
 watchdog==3.0.0
 zipp==3.17.0
+=======
+pymesh==1.0.2
+regex
+>>>>>>> 23c85af18bebc40c680fc39dda29ed2a1a6e6b8b
