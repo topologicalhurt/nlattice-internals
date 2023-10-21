@@ -2,6 +2,7 @@
 
 ## Project integration
 
+```
 ├── README.md
 ├── config
 │   └── config.json
@@ -20,6 +21,7 @@
 └── source
     ├── test_model.stl
     └── test_model2.stl
+```
 
 - config: configs storing project meta information in here. I.e. anytime you need to fetch information or metadata it belongs here.
 - dev_ops: developer operation folder.
