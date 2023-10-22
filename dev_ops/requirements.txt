@@ -30,7 +30,7 @@ protobuf==3.19.0
 pyarrow==13.0.0
 pydeck==0.8.1b0
 Pygments==2.16.1
-pymesh2 @ file:///root/PyMesh/dist/pymesh2-0.3.1-cp310-cp310-linux_x86_64.whl#sha256=fd2a3e766dabaaed3e193b8b6becf69c021c739ded725f7ca63e44193790fbeb
+pymesh2 @ file:///root/PyMesh/dist/pymesh2-0.3.1-cp310-cp310-
 Pympler==1.0.1
 python-dateutil==2.8.2
 pytz==2023.3.post1
