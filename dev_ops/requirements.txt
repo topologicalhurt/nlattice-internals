@@ -54,3 +54,7 @@ urllib3==2.0.7
 validators==0.22.0
 virtualenv==20.24.5
 zipp==3.17.0
+dash
+dash-core-components
+dash-html-components
+dash-renderer
