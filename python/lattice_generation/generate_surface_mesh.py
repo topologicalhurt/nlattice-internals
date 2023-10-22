@@ -172,9 +172,13 @@ def parse_args():
         #TODO actually implenent the usage of options
         return file_path, float(wire_thickness), float(max_volume_ratio), tessellation_option, node_placement_algo_option
 
-
-if __name__ == "__main__":
-    path, thickness, max_volume_ratio, tesellation_option, node_placement_algo_option = parse_args()
+def transform_mesh(
+    path,
+    thickness,
+    max_volume_ratio,
+    tesellation_option, 
+    node_placement_algo_option
+):
     mesh = pm.load_mesh(path)
 
     print("dim, vertex_per_face, vertex_per_voxel")
@@ -183,7 +187,7 @@ if __name__ == "__main__":
     print("creating wireframe")
     vertices, edges = get_wireframe(mesh, max_volume_ratio)
 
-    #this command takes hella long and sometimes gets killed by docker
+    # this command takes hella long and sometimes gets killed by docker
     wire_network = pm.wires.WireNetwork.create_from_data(vertices, edges)
     print_wire_data(wire_network)
     
@@ -196,7 +200,16 @@ if __name__ == "__main__":
     mesh = inflator.mesh
 
     print("inflated, saving now")
-    # save the mesh
-    pm.save_mesh("Output.stl", mesh)
 
+    # saved_path = str("processed/" + path)
+    saved_path = "./output.stl"
+
+    # save the mesh
+    pm.save_mesh(saved_path, mesh)
+
+    
+if __name__ == "__main__":
+    path, thickness, max_volume_ratio, tesellation_option, node_placement_algo_option = parse_args()
+    transform_mesh(path, thickness, max_volume_ratio, tesellation_option, node_placement_algo_option)
+    
     
