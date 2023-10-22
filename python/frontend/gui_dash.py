@@ -7,8 +7,12 @@ from python.pc.consts import Conf
 from python.frontend.view_model import visualise
 from python.lattice_generation.generate_surface_mesh import transform_mesh, tetrahedralize_options
 
-# def launch_dash_gui():
 app = Dash(__name__)
+
+
+def launch_dash_gui():
+    app.run_server(debug=True, host='0.0.0.0')
+
 
 app.layout = html.Div([
     html.H1("Mesh Visualisation"),
@@ -78,6 +82,7 @@ app.layout = html.Div([
     ], style={'width': '49%', 'float': 'right', 'display': 'inline-block'})
 ])
 
+
 @callback(
     [Output('mesh-graph', 'figure'),
     Output('edge-size-label', 'children'),
@@ -86,7 +91,6 @@ app.layout = html.Div([
     [State('tess-option', 'value'),
      State('node-placement-algo-option', 'value')]
 )
-
 def update_output(n_clicks, edge_size, tess_size, tess_option, node_placement_algo_option):
     file_path = "./python/lattice_generation/stl_assets/20mm_cube.stl"
     # file_path = "./python/lattice_generation/stl_assets/bear.stl" 
@@ -108,12 +112,7 @@ def update_output(n_clicks, edge_size, tess_size, tess_option, node_placement_al
         )
 
         file_path = "./output.stl"
-        
-        
+
     mesh = mm.loadMesh(mm.Path(file_path))
     fig = visualise(mesh, edge_size, tess_size)
     return fig, html.Div(f"Current edge size: {edge_size}"), html.Div(f"Current tess size: {tess_size}")
-
-     
-
-app.run_server(debug=True, host='0.0.0.0')
