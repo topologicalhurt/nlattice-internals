@@ -2,62 +2,12 @@ from enum import Enum
 import pymesh as pm
 import numpy as np
 import sys
-# import matplotlib.pyplot as plt
-# from is_inside_mesh import is_inside_turbo as is_inside
-# from enum import Enum
+
 
 def print_wire_data(wn):
     print(f"Dim: {wn.dim}")
     print(f"Vertices: {wn.num_vertices}")
     print(f"Edges: {wn.num_edges}")
-
-
-def get_required_triangle_form(mesh):
-    vertices = mesh.vertices
-    faces = mesh.faces
-    outer = []
-    for i in range(len(faces)):
-        points = []
-        for j in range(len(faces[i])):
-            v = faces[i][j]
-            points.append(vertices[v])
-        point_np = np.array(points)
-        outer.append(point_np)
-    outer_np = np.array(outer)
-    print(outer_np.shape)
-    return outer_np
-
-
-def generate_interior_points(mesh, spacing):
-    triangles = get_required_triangle_form(mesh)
-    min_corner = np.amin(np.amin(triangles, axis=0), axis=0)
-    max_corner = np.amax(np.amax(triangles, axis=0), axis=0)
-    # random points below
-    # P = (max_corner - min_corner) * np.random.random((5000, 3)) + min_corner
-
-    # Grid style points below
-    x_min, y_min, z_min = min_corner[0] + spacing, min_corner[1] + spacing, min_corner[2] + spacing
-    max_x, max_y, max_z = max_corner[0], max_corner[1], max_corner[2]
-    x, y, z = x_min, y_min, z_min
-
-    P_list = []
-    while x < max_x:
-        while y < max_y:
-            while z < max_z:
-                temp = np.array([x, y, z])
-                P_list.append(temp)
-                z += spacing
-            z = z_min
-            y += spacing
-        y = y_min
-        x += spacing
-    P = np.array(P_list)
-    print(P.size)
-
-    # P = P[is_inside(triangles, P)]
-    # print(P.size)
-
-    return P
 
 
 def get_wireframe(mesh, max_volume_ratio):
@@ -67,6 +17,7 @@ def get_wireframe(mesh, max_volume_ratio):
 
 def get_wire_info_prototype(mesh):
     return np.dot(mesh.vertices, 1), mesh.faces
+
 
 def edges_from_faces(vertices, faces):
     edges = []
@@ -81,7 +32,7 @@ def edges_from_faces(vertices, faces):
     for v in range(len(faces)):
 
         for i in range(len(faces[v])):
-            for j in range(i+1):
+            for j in range(i + 1):
                 if i == j:
                     continue
 
@@ -96,21 +47,21 @@ def edges_from_faces(vertices, faces):
     return np.array(edges)
 
 
+def slider_to_volume(vertices, n):
+    min_corner = np.min(vertices, axis=0)
+    max_corner = np.max(vertices, axis=0)
+
+    size = max_corner - min_corner
+    volume = size[0] * size[1] * size[2]
+
+    return volume / (n ** 2)
+
+
 def get_wire_info(vertices, faces, max_volume_ratio):
     # switching to the wrapper of si's tetgen library to try and get tetrahedral voxels of the object
     tet = pm.tetgen()
     tet.points = vertices
     tet.triangles = faces
-    # tet.keep_convex_hull = True
-
-    def slider_to_volume(vertices, n):
-        min_corner = np.min(vertices, axis=0)
-        max_corner = np.max(vertices, axis=0)
-
-        size = max_corner - min_corner
-        volume = size[0] * size[1] * size[2]
-
-        return volume / (n**2)
 
     tet.max_tet_volume = slider_to_volume(vertices, max_volume_ratio)
     print("max volume ratio is passed: " + str(tet.max_tet_volume))
@@ -121,34 +72,11 @@ def get_wire_info(vertices, faces, max_volume_ratio):
     faces = new_mesh.voxels
     print(new_mesh.voxels)
     vertices = new_mesh.vertices
-    
 
     np_edges = edges_from_faces(vertices, faces)
 
-    # print(vertices)
-    # print(inner_points)
-    # all_points = np.concatenate((vertices, inner_points))
-    # np.save("all_points", all_points)
-    # interior_points, interior_edges = meshify_inside(inner_points)
-
     return vertices, np_edges
 
-
-def meshify_inside(inner_points):
-    # Singular triangle
-    temp = inner_points[0][0]
-    vertices = []
-    for i in range(len(inner_points)):
-        if inner_points[i][0] == temp:
-            vertices.append(inner_points[i])
-    vertices_np = np.array(vertices)
-    tri = pm.triangle()
-    tri.points = vertices_np
-    tri.run()
-    mesh_face = tri.mesh
-    print(tri.points)
-
-    return vertices_np, "hi"
 
 # class tesellation_option(Enum):
 #     Default = 1
@@ -170,13 +98,12 @@ class tetrahedralize_options(Enum):
 
 
 
-    
 
 def parse_args():
     file_path = sys.argv[1] if len(sys.argv) > 1 else None
-    #edge size = wire_thickness
+    # edge size = wire_thickness
     wire_thickness = sys.argv[2] if len(sys.argv) > 2 else None
-    #corresponds to tesellation size
+    # corresponds to tesellation size
     max_volume_ratio = sys.argv[3] if len(sys.argv) > 3 else None
     
     #if you only have 3 arguments then the program will use advanced tetgen
