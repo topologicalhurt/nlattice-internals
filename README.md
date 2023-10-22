@@ -90,6 +90,7 @@ and navigate to **localhost:8501** for the web view.
 ```
 python main.py -ui dash
 ```
+and navigate to **localhost:8050** for the web view.
 
 ***No gui (CLI mode)***
 ```
