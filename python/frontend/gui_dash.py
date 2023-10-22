@@ -89,10 +89,9 @@ app.layout = html.Div([
 
 def update_output(n_clicks, edge_size, tess_size, tess_option, node_placement_algo_option):
     file_path = "./python/lattice_generation/stl_assets/20mm_cube.stl"
+    # file_path = "./python/lattice_generation/stl_assets/bear.stl" 
     
-
     if "convert-button" == ctx.triggered_id:
-        
         print(edge_size)
         print(tess_size)
         print(tess_option)

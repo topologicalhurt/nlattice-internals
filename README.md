@@ -43,27 +43,7 @@
 
 To run the program do the following **You will first have to build the docker if you haven't done so already!**
 
-On windows:
-```
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-./dev_ops/Scripts/run_scripts/run.ps1
-```
-
-On linux:
-```
-chmod +x ./dev_ops/Scripts/run_scripts/run.sh
-./dev_ops/Scripts/run_scripts/run.sh
-```
-
-And then in the root terminal (where the prior commands were just run):
-```
-streamlit run main.py
-```
-and navigate to **localhost:8501** for the web view.
-
-On repeated runs omit the file access modifier commands of course (just run ```./dev_ops/Scripts/run_scripts/run.ps1```, ```./dev_ops/Scripts/run_scripts/run.sh```)
-
-## Building the docker
+### Building the docker
 
 On linux:
 ```
@@ -79,3 +59,38 @@ docker build -t nlattice:v1.0 .
 ```
 
 This builds from the dockerfile. The dockerfile builds an image using a forked/patched version of the now obsolete pymesh library.
+
+### Run the docker container
+
+On windows:
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+./dev_ops/Scripts/run_scripts/run.ps1
+```
+
+On linux:
+```
+chmod +x ./dev_ops/Scripts/run_scripts/run.sh
+./dev_ops/Scripts/run_scripts/run.sh
+```
+
+### Start the Streamlit UI
+
+And then in the root terminal (where the prior commands were just run):
+```
+
+streamlit run main.py
+```
+and navigate to **localhost:8501** for the web view.
+
+On repeated runs omit the file access modifier commands of course (just run ```./dev_ops/Scripts/run_scripts/run.ps1```, ```./dev_ops/Scripts/run_scripts/run.sh```)
+
+### Start the Plotly Dash UI
+
+Inside the docker container, run this:
+
+```
+export PYTHONPATH="${PYTHONPATH}:/nlattice/python"
+python3 python/frontend/gui_dash.py
+```
+
