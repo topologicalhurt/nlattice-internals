@@ -200,4 +200,8 @@ if __name__ == "__main__":
 
     print("inflated, saving now")
     # save the mesh
-    pm.save_mesh(str("processed" + path), mesh)
+
+    saved_path = str("processed/" + path)
+    print(saved_path)
+
+    pm.save_mesh(saved_path, mesh)
