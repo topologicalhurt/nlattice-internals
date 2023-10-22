@@ -53,12 +53,13 @@ def launch_main_win_streamlit():
             st.write("Bowyer-Watson Triangulation selected")
 
         # Slider for edge size
-        edge_size = st.slider("Edge size", min_value=0.0, max_value=10.0, value=1.0)
+        wire_thickness = st.slider("Wire Thickness", min_value=1.0, max_value=100.0, value=5.0)
         # Slider for tessellation size
-        tess_size = st.slider("Tessellation size", min_value=0.0, max_value=10.0, value=1.0)
+        complexity = st.slider("Tessellation complexity", min_value=0.0, max_value=10.0, value=0.1)
         # Create convert button
         if st.button("Convert"):
-            st.write("Converted!")
+            st.write(f"{wire_thickness}, {complexity}")
+
             # #Load the mesh
             # mesh = mm.loadMesh(mm.Path("pokemonstl/bulbasaur_demo.stl"))
             # #Modify mesh using edge_size and tess_size
@@ -76,8 +77,8 @@ def launch_main_win_streamlit():
         st.header("Mesh")
         mesh = mm.loadMesh(mm.Path(Conf.CONFIG['Objects'][1]['Dir']))
         st.write(dir(mesh))
-        fig = visualise(mesh, edge_size, tess_size)
-        st.plotly_chart(fig)
+        # fig = visualise(mesh, edge_size, tess_size)
+        # st.plotly_chart(fig)
         # if draw_centroid_coincident:
         #     # draw_line_3d(centroid_coincident)
         #     pass
