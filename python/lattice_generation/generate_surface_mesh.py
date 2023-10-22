@@ -101,8 +101,17 @@ def get_wire_info(vertices, faces, max_volume_ratio):
     tet.points = vertices
     tet.triangles = faces
     # tet.keep_convex_hull = True
-    tet.max_tet_volume = max_volume_ratio
-    print("max volume ratio is passed: " + str(max_volume_ratio))
+    def slider_to_volume(vertices, n):
+        min_corner = np.min(vertices, axis=0)
+        max_corner = np.max(vertices, axis=0)
+
+        size = max_corner - min_corner
+        volume = size[0] * size[1] * size[2]
+
+        return volume / (n**2)
+
+    tet.max_tet_volume = slider_to_volume(vertices, max_volume_ratio)
+    print("max volume ratio is passed: " + str(tet.max_tet_volume))
     # tet.min_dihedral_angle = 15.0
     tet.verbosity = 1
     tet.run()
