@@ -3,6 +3,10 @@
         {
             "Id": 0,
             "Dir": "./out/point_cloud.stl"
+        },
+        {
+            "Id": 1,
+            "Dir": "./sources/test_model.stl"
         }
     ]
 }

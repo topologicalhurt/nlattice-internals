@@ -67,6 +67,6 @@ def launch_main_win():
     # Right column
     with right_col:
         st.header("Mesh")
-        mesh = mm.loadMesh(mm.Path(Conf.CONFIG['Objects'][0]['Dir']))
+        mesh = mm.loadMesh(mm.Path(Conf.CONFIG['Objects'][1]['Dir']))
         fig = visualise(mesh, edge_size, tess_size)
         st.plotly_chart(fig)
