@@ -1,21 +1,9 @@
 import pymesh as pm
 import numpy as np
-import matplotlib.pyplot as plt
 import sys
-import numpy as np
-from is_inside_mesh import is_inside_turbo as is_inside
-from enum import Enum
-
-# def plot_points_plt(points):
-#     fig = plt.figure()
-#     ax = fig.add_subplot(111, projection='3d')
-#     ax.scatter(points[:, 0], points[:, 1], points[:, 2])
-#     ax.set_xlabel('X')
-#     ax.set_ylabel('Y')
-#     ax.set_zlabel('Z')
-#     plt.title('Points Before Delaunay Triangulation')
-#     plt.savefig("test_point_interior.png", dpi=150)
-
+# import matplotlib.pyplot as plt
+# from is_inside_mesh import is_inside_turbo as is_inside
+# from enum import Enum
 
 def print_wire_data(wn):
     print(f"Dim: {wn.dim}")
@@ -150,16 +138,17 @@ def meshify_inside(inner_points):
 
     return vertices_np, "hi"
 
-class tesellation_option(Enum):
-    Default = 1
+# class tesellation_option(Enum):
+#     Default = 1
 
-class node_placement_algo_option(Enum):
-    #TODO add other tetrahedralize function options here, will need to edit how main behaves to accomodate
-    Default = 1
-    Delaunay = 1
+# class node_placement_algo_option(Enum):
+#     #TODO add other tetrahedralize function options here, will need to edit how main behaves to accomodate
+#     Default = 1
+#     Delaunay = 1
 
-class triangulation_option
-    #TODO may not implement
+# class triangulation_option:
+#     pass
+#     #TODO may not implement
 
     
 
@@ -179,20 +168,13 @@ def parse_args():
         exit()
 
     else:
-        return file_path, float(wire_thickness), float(longest_line), 
+        #TODO actually implenent the usage of options
+        return file_path, float(wire_thickness), float(longest_line), tessellation_option, node_placement_algo_option
 
 
 if __name__ == "__main__":
-    path, thickness, longest_line, tessellation_option, node_placement_algo_option, triangulation_option = parse_args()
+    path, thickness, longest_line, tesellation_option, node_placement_algo_option = parse_args()
     mesh = pm.load_mesh(path)
-    # Generate box for testing below
-    box_mesh = pm.generate_box_mesh(np.array([0, 0, 0]), np.array([5, 5, 5]), using_simplex=True)
-    mesh, __ = pm.collapse_short_edges(mesh, rel_threshold=0.30)
-    # mesh, info = pm.split_long_edges(mesh, longest_line)
-
-    print("Vertices, faces, voxels")
-    print(mesh.num_vertices, mesh.num_faces, mesh.num_voxels)
-
 
     print("dim, vertex_per_face, vertex_per_voxel")
     print(mesh.dim, mesh.vertex_per_face, mesh.vertex_per_voxel)
@@ -201,39 +183,21 @@ if __name__ == "__main__":
     interior_points = generate_interior_points(mesh, longest_line)
     # plot_points_plt(interior_points)
 
-
     print("creating wireframe")
-    #creating the wireframe is messing up the corners and not connecting them well
     vertices, edges = get_wireframe(mesh, interior_points)
-    print("vertices")
-    print(vertices)
-    print(edges)
-
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
-
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-
-    points = vertices  # replace with your points
-    ax.scatter(*zip(*points))
-
-    for edge in edges:
-        ax.plot(*zip(*[points[i] for i in edge]))
-
-    plt.savefig('3d_plot.png')
-
 
     #this command takes hella long and sometimes gets killed by docker
     wire_network = pm.wires.WireNetwork.create_from_data(vertices, edges)
-
     print_wire_data(wire_network)
+    
     # Inflator
     inflator = pm.wires.Inflator(wire_network)
+    
     print("starting inflation")
+
     inflator.inflate(thickness, allow_self_intersection=True)
     mesh = inflator.mesh
 
     print("inflated, saving now")
     # save the mesh
-    pm.save_mesh("CubeE.stl", mesh)
+    pm.save_mesh(str("processed" + path), mesh)
