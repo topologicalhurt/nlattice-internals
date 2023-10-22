@@ -15,6 +15,11 @@
 #  make Scripts
 #fi
 
+if [[ $(uname -m) == 'arm64' ]]; then
+  echo "Uninstalling watchdog to get arm64 support"
+  pip uninstall watchdog
+fi
+
 # Install python requirements
 pip3 install virtualenv
 
