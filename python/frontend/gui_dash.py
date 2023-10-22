@@ -90,17 +90,20 @@ def update_output(n_clicks, edge_size, tess_size, tess_option, node_placement_al
     if "convert-button" == ctx.triggered_id:
         
         print(edge_size)
-        print(tess_size)
+        # print(tess_size)
         print(tess_option)
         print(node_placement_algo_option)
 
-        # transform_mesh(
-        #     path=file_path,
-        #     thickness=edge_size,
-        #     max_volume_ratio=tess_size,
-        #     tesellation_option=tess_option,
-        #     node_placement_algo_option=node_placement_algo_option
-        # )
+        tess_size = int(tess_size) * 100
+        print(tess_size)
+
+        transform_mesh(
+            path=file_path,
+            thickness=edge_size,
+            max_volume_ratio=tess_size,
+            tesellation_option=tess_option,
+            node_placement_algo_option=node_placement_algo_option
+        )
 
         file_path = "./python/lattice_generation/output.stl"
         

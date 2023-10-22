@@ -213,3 +213,5 @@ if __name__ == "__main__":
     transform_mesh(path, thickness, max_volume_ratio, tesellation_option, node_placement_algo_option)
     
     
+    
+    
