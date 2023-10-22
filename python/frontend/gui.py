@@ -68,5 +68,10 @@ def launch_main_win():
     with right_col:
         st.header("Mesh")
         mesh = mm.loadMesh(mm.Path(Conf.CONFIG['Objects'][0]['Dir']))
+        st.write(dir(mesh))
         fig = visualise(mesh, edge_size, tess_size)
         st.plotly_chart(fig)
+
+def modifyMesh(mesh, edge_size, tess_size):
+    # Scale the mesh 
+    return mesh
