@@ -72,6 +72,7 @@ def launch_main_win(centroid_coincident: Optional[np.array] = None,
     with right_col:
         st.header("Mesh")
         mesh = mm.loadMesh(mm.Path(Conf.CONFIG['Objects'][0]['Dir']))
+        st.write(dir(mesh))
         fig = visualise(mesh, edge_size, tess_size)
         st.plotly_chart(fig)
         if draw_centroid_coincident:
@@ -80,3 +81,8 @@ def launch_main_win(centroid_coincident: Optional[np.array] = None,
 
 def draw_line_3d(vec: np.array):
     st.plotly.express.line(vec)
+
+
+def modifyMesh(mesh, edge_size, tess_size):
+    # TODO: Scale the mesh
+    return mesh
