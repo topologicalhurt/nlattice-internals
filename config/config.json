@@ -6,7 +6,7 @@
         },
         {
             "Id": 1,
-            "Dir": "./sources/test_model.stl"
+            "Dir": "./source/test_model2.stl"
         }
     ]
 }

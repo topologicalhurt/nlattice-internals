@@ -1,10 +1,14 @@
 import streamlit as st
+import numpy as np
 from meshlib import mrmeshpy as mm
+from typing import Optional
+
 from python.pc.consts import Conf
 from python.frontend.view_model import visualise
 
 
-def launch_main_win():
+def launch_main_win(centroid_coincident: Optional[np.array] = None,
+                    draw_centroid_coincident: Optional[bool] = False):
     st.title("Mesh Visualisation")
 
     # Custom CSS to make all buttons the same size
@@ -67,6 +71,12 @@ def launch_main_win():
     # Right column
     with right_col:
         st.header("Mesh")
-        mesh = mm.loadMesh(mm.Path(Conf.CONFIG['Objects'][1]['Dir']))
+        mesh = mm.loadMesh(mm.Path(Conf.CONFIG['Objects'][0]['Dir']))
         fig = visualise(mesh, edge_size, tess_size)
         st.plotly_chart(fig)
+        if draw_centroid_coincident:
+            draw_line_3d(centroid_coincident)
+
+
+def draw_line_3d(vec: np.array):
+    st.plotly.express.line(vec)
