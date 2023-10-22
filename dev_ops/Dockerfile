@@ -7,4 +7,4 @@ EXPOSE 8501
 
 COPY ./Scripts/install_scripts/entry_point.sh /tmp/
 COPY ./requirements.txt /tmp/
-RUN . /tmp/entry_point.sh
+RUN /bin/bash /tmp/entry_point.sh

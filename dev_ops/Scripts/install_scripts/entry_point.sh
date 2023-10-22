@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Upgrade apt-get
 # apt-get update && apt-get upgrade
@@ -15,9 +15,9 @@
 #  make Scripts
 #fi
 
-if [[ $(uname -m) == 'arm64' ]]; then
-  echo "Uninstalling watchdog to get arm64 support"
-  pip uninstall watchdog
+if [[ $(uname -m) -eq 'arm64' ]]; then
+	echo "Uninstalling watchdog to get arm64 support"
+	pip uninstall watchdog -y
 fi
 
 # Install python requirements
