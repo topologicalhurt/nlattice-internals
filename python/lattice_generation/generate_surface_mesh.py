@@ -59,9 +59,9 @@ def generate_interior_points(mesh, spacing):
     return P
 
 
-def get_wireframe(mesh):
+def get_wireframe(mesh, max_volume_ratio):
     v, f = get_wire_info_prototype(mesh)
-    return get_wire_info(v, f)
+    return get_wire_info(v, f, max_volume_ratio)
 
 
 def get_wire_info_prototype(mesh):
@@ -95,13 +95,14 @@ def edges_from_faces(vertices, faces):
     return np.array(edges)
 
 
-def get_wire_info(vertices, faces):
+def get_wire_info(vertices, faces, max_volume_ratio):
     # switching to the wrapper of si's tetgen library to try and get tetrahedral voxels of the object
     tet = pm.tetgen()
     tet.points = vertices
     tet.triangles = faces
     # tet.keep_convex_hull = True
-    tet.max_tet_volume = 300
+    tet.max_tet_volume = max_volume_ratio
+    print("max volume ratio is passed: " + str(max_volume_ratio))
     # tet.min_dihedral_angle = 15.0
     tet.verbosity = 1
     tet.run()
@@ -157,30 +158,30 @@ def parse_args():
     #edge size = wire_thickness
     wire_thickness = sys.argv[2] if len(sys.argv) > 2 else None
     #corresponds to tesellation size
-    longest_line = sys.argv[3] if len(sys.argv) > 3 else None
+    max_volume_ratio = sys.argv[3] if len(sys.argv) > 3 else None
     tessellation_option = sys.argv[4]
     node_placement_algo_option = sys.argv[5] 
     # triangulation_option = sys.argv[6]
     
 
-    if file_path is None or wire_thickness is None or longest_line is None or tessellation_option is None or node_placement_algo_option is None:
+    if file_path is None or wire_thickness is None or max_volume_ratio is None or tessellation_option is None or node_placement_algo_option is None:
         print("Usage: python generate_surface_mesh.py <filepath> <wire thickness> <longest edge> <tessellation_option> <node_placement_algo_option> <triangulation_option>")
         exit()
 
     else:
         #TODO actually implenent the usage of options
-        return file_path, float(wire_thickness), float(longest_line), tessellation_option, node_placement_algo_option
+        return file_path, float(wire_thickness), float(max_volume_ratio), tessellation_option, node_placement_algo_option
 
 
 if __name__ == "__main__":
-    path, thickness, longest_line, tesellation_option, node_placement_algo_option = parse_args()
+    path, thickness, max_volume_ratio, tesellation_option, node_placement_algo_option = parse_args()
     mesh = pm.load_mesh(path)
 
     print("dim, vertex_per_face, vertex_per_voxel")
     print(mesh.dim, mesh.vertex_per_face, mesh.vertex_per_voxel)
 
     print("creating wireframe")
-    vertices, edges = get_wireframe(mesh)
+    vertices, edges = get_wireframe(mesh, max_volume_ratio)
 
     #this command takes hella long and sometimes gets killed by docker
     wire_network = pm.wires.WireNetwork.create_from_data(vertices, edges)
