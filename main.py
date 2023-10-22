@@ -4,7 +4,7 @@ import pymesh as pm
 from python.utils.utils import time_it
 from python.pc.consts import Dirs
 from python.pc.point_cloud import PointCloud
-from python.frontend.gui import launch_main_win, draw_line_3d
+from python.frontend.gui import launch_main_win_streamlit, draw_line_3d
 
 parser = argparse.ArgumentParser(description='Nlattice is a 3D mesh latticing lib. Read more here: ' +
                                              'https://github.com/topologicalhurt/nlattice-internals')
@@ -14,7 +14,8 @@ parser.add_argument('--test', action='store_true', help='Flag which determines t
 args = parser.parse_args()
 
 
-class StorePc:
+class SharedPc:
+    """"Basic PTR pattern - points to the point cloud so main() doesn't have to be encapsulated in a class"""
     def __init__(self):
         self._pc = None
 
@@ -25,13 +26,10 @@ class StorePc:
         return self._pc
 
 
-common_pc = StorePc()
-
-
 @time_it
-def main():
+def main(spc: SharedPc):
     pc = PointCloud(mod_fname=Dirs.MODEL_FDIR)
-    common_pc.set_pc(pc)
+    spc.set_pc(pc)
 
     if args.test:
         print('Running benchmark on mesh...')
@@ -46,8 +44,9 @@ def main():
 
 
 if __name__ == '__main__':
-    point_cloud = common_pc.get_pc()
-    main()
+    shared_pc = SharedPc()
+    main(shared_pc)
+    point_cloud = shared_pc.get_pc()
     if not args.no_gui:
-        launch_main_win(centroid_coincident=point_cloud.get_centroid_coincident(),
-                        draw_centroid_coincident=True)
+        launch_main_win_streamlit(centroid_coincident=point_cloud.get_centroid_coincident(),
+                                  draw_centroid_coincident=True)
