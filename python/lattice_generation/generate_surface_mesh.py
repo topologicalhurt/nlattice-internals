@@ -59,9 +59,9 @@ def generate_interior_points(mesh, spacing):
     return P
 
 
-def get_wireframe(mesh, inner_points):
+def get_wireframe(mesh):
     v, f = get_wire_info_prototype(mesh)
-    return get_wire_info(v, f, inner_points)
+    return get_wire_info(v, f)
 
 
 def get_wire_info_prototype(mesh):
@@ -95,7 +95,7 @@ def edges_from_faces(vertices, faces):
     return np.array(edges)
 
 
-def get_wire_info(vertices, faces, inner_points):
+def get_wire_info(vertices, faces):
     # switching to the wrapper of si's tetgen library to try and get tetrahedral voxels of the object
     tet = pm.tetgen()
     tet.points = vertices
@@ -179,12 +179,8 @@ if __name__ == "__main__":
     print("dim, vertex_per_face, vertex_per_voxel")
     print(mesh.dim, mesh.vertex_per_face, mesh.vertex_per_voxel)
 
-    print("generating internal points")
-    interior_points = generate_interior_points(mesh, longest_line)
-    # plot_points_plt(interior_points)
-
     print("creating wireframe")
-    vertices, edges = get_wireframe(mesh, interior_points)
+    vertices, edges = get_wireframe(mesh)
 
     #this command takes hella long and sometimes gets killed by docker
     wire_network = pm.wires.WireNetwork.create_from_data(vertices, edges)
@@ -200,4 +196,6 @@ if __name__ == "__main__":
 
     print("inflated, saving now")
     # save the mesh
-    pm.save_mesh(str("processed" + path), mesh)
+    pm.save_mesh("Output.stl", mesh)
+
+    
