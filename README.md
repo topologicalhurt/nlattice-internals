@@ -45,14 +45,14 @@ To run the program do the following **You will first have to build the docker if
 
 ### Building the docker
 
-On linux:
+***On linux***
 ```
 cd dev_ops
 chmod +x build.sh
 ./build.sh
 ```
 
-On windows:
+***On windows***
 ```
 cd dev_ops
 docker build -t nlattice:v1.0 .
@@ -62,35 +62,43 @@ This builds from the dockerfile. The dockerfile builds an image using a forked/p
 
 ### Run the docker container
 
-On windows:
+***On windows*** 
 ```
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ./dev_ops/Scripts/run_scripts/run.ps1
 ```
 
-On linux:
+***On linux***
 ```
 chmod +x ./dev_ops/Scripts/run_scripts/run.sh
 ./dev_ops/Scripts/run_scripts/run.sh
 ```
 
-### Start the Streamlit UI
+On repeated runs omit the file access modifier commands of course (just run ```./dev_ops/Scripts/run_scripts/run.ps1```, ```./dev_ops/Scripts/run_scripts/run.sh```)
+
+### Starting the UI
 
 And then in the root terminal (where the prior commands were just run):
-```
 
-streamlit run main.py
+***Streamlit***
+```
+python main.py -ui streamlit
 ```
 and navigate to **localhost:8501** for the web view.
 
-On repeated runs omit the file access modifier commands of course (just run ```./dev_ops/Scripts/run_scripts/run.ps1```, ```./dev_ops/Scripts/run_scripts/run.sh```)
-
-### Start the Plotly Dash UI
-
-Inside the docker container, run this:
-
+***Dash***
 ```
-export PYTHONPATH="${PYTHONPATH}:/nlattice/python"
-python3 python/frontend/gui_dash.py
+python main.py -ui dash
 ```
+
+***No gui (CLI mode)***
+```
+python main.py --no-gui
+```
+
+Please run:
+```
+python main.py --help
+```
+for more commands
 
