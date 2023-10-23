@@ -8,7 +8,7 @@ def visualise(mesh, edge_size, tess_size):
     faces = mn.getNumpyFaces(mesh.topology)
 
     # Scale the vertices based on tessellation size
-    verts = verts * tess_size
+    # verts = verts * tess_size
 
     vertsT = np.transpose(verts)
     facesT = np.transpose(faces)
