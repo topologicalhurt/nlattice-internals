@@ -92,8 +92,8 @@ app.layout = html.Div([
      State('node-placement-algo-option', 'value')]
 )
 def update_output(n_clicks, edge_size, tess_size, tess_option, node_placement_algo_option):
-    original_path = "./python/lattice_generation/stl_assets/20mm_cube.stl"
-    # file_path = "./python/lattice_generation/stl_assets/bear.stl" 
+    original_path = "./python/lattice_generation/stl_assets/bulbasaur.stl"
+    # original_path = "./python/lattice_generation/stl_assets/20mm_cube.stl"
     
     if "convert-button" == ctx.triggered_id:
         print(edge_size)

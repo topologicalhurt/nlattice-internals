@@ -75,10 +75,10 @@ def launch_main_win_streamlit():
     # Right column
     with right_col:
         st.header("Mesh")
-        mesh = mm.loadMesh(mm.Path(Conf.CONFIG['Objects'][1]['Dir']))
+        mesh = mm.loadMesh("./python/lattice_generation/stl_assets/bulbasaur.stl")
         st.write(dir(mesh))
-        # fig = visualise(mesh, edge_size, tess_size)
-        # st.plotly_chart(fig)
+        fig = visualise(mesh, wire_thickness, complexity)
+        st.plotly_chart(fig)
         # if draw_centroid_coincident:
         #     # draw_line_3d(centroid_coincident)
         #     pass

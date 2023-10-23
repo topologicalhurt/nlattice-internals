@@ -158,6 +158,7 @@ def transform_mesh(
     print("inflated, saving now")
     # save the mesh
     pm.save_mesh("./output.stl", mesh)
+    print("Saved in root as output.stl")
     
 
 if __name__ == "__main__":
