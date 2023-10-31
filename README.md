@@ -44,7 +44,7 @@
 clone the repository
 ```
 git clone https://github.com/topologicalhurt/nlattice-internals.git
-cd nlattice-internals
+cd nlattice
 ```
 
 To run the program do the following **You will first have to build the docker if you haven't done so already!**
@@ -67,7 +67,7 @@ docker build -t nlattice:v1.0 .
 This builds from the dockerfile. The dockerfile builds an image using a forked/patched version of the now obsolete pymesh library.
 
 ### Run the docker container
-**From the docker nlattice-internals directory**
+**From the docker nlattice directory**
 
 ***On windows*** 
 ```
