@@ -58,7 +58,7 @@ chmod +x build.sh
 ./build.sh
 ```
 
-***On windows***
+***On windows/wsl***
 ```
 cd dev_ops
 docker build -t nlattice:v1.0 .
