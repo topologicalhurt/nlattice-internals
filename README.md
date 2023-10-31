@@ -58,7 +58,7 @@ chmod +x build.sh
 ./build.sh
 ```
 
-***On windows/wsl***
+***On windows & wsl***
 ```
 cd dev_ops
 docker build -t nlattice:v1.0 .
@@ -67,7 +67,7 @@ docker build -t nlattice:v1.0 .
 This builds from the dockerfile. The dockerfile builds an image using a forked/patched version of the now obsolete pymesh library.
 
 ### Run the docker container
-**From the nlattice directory**
+**From the nlattice-internals directory**
 
 ***On windows*** 
 ```
@@ -75,7 +75,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ./dev_ops/Scripts/run_scripts/run.ps1
 ```
 
-***On linux***
+***On linux & wsl***
 ```
 chmod +x ./dev_ops/Scripts/run_scripts/run.sh
 ./dev_ops/Scripts/run_scripts/run.sh
