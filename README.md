@@ -67,6 +67,7 @@ docker build -t nlattice:v1.0 .
 This builds from the dockerfile. The dockerfile builds an image using a forked/patched version of the now obsolete pymesh library.
 
 ### Run the docker container
+**From the docker nlattice-internals directory**
 
 ***On windows*** 
 ```
