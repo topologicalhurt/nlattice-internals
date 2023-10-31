@@ -41,6 +41,11 @@
 
 ## How to run 
 
+clone the repository
+```
+git clone https://github.com/topologicalhurt/nlattice-internals.git
+```
+
 To run the program do the following **You will first have to build the docker if you haven't done so already!**
 
 ### Building the docker
